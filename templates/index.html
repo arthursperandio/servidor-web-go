@@ -23,24 +23,27 @@
     <h2>Documentação do Servidor Go</h2>
     <p>Bem-vindo à documentação do nosso servidor Go!</p>
     <p>Go é uma linguagem de programação compilada, tipada estaticamente e open source.
-        Foi criada no Google em 2009 com objetivo de unir a simlicidade de linguagens como Python
+        Foi criada no Google em 2009 com objetivo de unir a simplicidade de linguagens como Python
         com a performance de C / C++
     </p>
 
-    <h3>Pontos fortes!</h3>
+    <h2>Seção 1 — Pontos Fortes e Filosofia</h2>
     <p>{{.Secao1.Descricao}}</p>
-    <p> Com uma biblioteca padrão rica com, HTTP, JSON, CRIPTOGRAFIA, TESTE e outros recursos
-          sem depender de frameworks terceiros.
-        Algumas ferramentas integrada como, go build, go test, go fmt, go mod, go vet.
-        Sobre o go build compila os pacotes e suas dependencias, se for uma main func, gera um executavel
-        se for biblioteca verifica se tem erros sem gerar arquivo.exe    
+    <p> A biblioteca padrão é rica, com recursos para HTTP, JSON, CRIPTOGRAFIA, TESTES e outros recursos
+          sem depender de frameworks de terceiros.
+        Algumas ferramentas integradas, como go build, go test, go fmt, go mod, go vet.
+        Sobre o go build compila os pacotes e suas dependencias, se for uma função main, gera um arquivo executável
+        se for uma biblioteca verifica se tem erros sem gerar arquivo.exe    
         
-        Esse é um dos pontos fortes: go build lê o go mod, para saber as dependencias compila cada pacotes
-         Usando um cache de build, ele é rapido pois ele vai recompilar apenas os que tiveram mudanças
+        Esse é um dos pontos fortes: go build lê o go mod, para saber as dependências compila cada pacote
+         Usando um cache de build, ele é rápido pois ele vai recompilar apenas os que tiveram mudanças
          faz o linking, juntando tudo em um binário estático, com o runtime do Go (incluindo o garbage collector) embutido.
 
-         Ja que um dos objetivos dos criados era otimizar o tempo ao compilar varios codigos.
+         Jáque o objetivo dos criadores era otimizar o tempo ao compilar vários códigos.
     </p>
+
+     <h3>Caso de uso ideal</h3>
+      <p>{{.Secao1.CasoDeUsoIdeal}}</p>  
      
     <h2>Seção 2 — Pré-requisitos e Setup</h2>
 
@@ -56,16 +59,13 @@
     {{range .Secao2.Comandos}}
         <li><code>{{.}}</code></li>
     {{end}}
-    </ul>
-
-     <h3>Caso de uso ideal</h3>
-      <p>{{.Secao1.CasoDeUsoIdeal}}</p>    
+    </ul>  
     
       <h4>Funcionamento</h4>
-      <p>Compilada por binariios nativos, o codigo vira um executavel, sem precisar de maquina virtual
-        ou interpretador, Garbage Colector gerencia a memória automaticamnte.
-        Concorrencia embutida, com o Goroutines ele consegue lidar com várias tarefas ao mesmo tempo, alternando entre elas.
-        e execultar tarefaz sumultaneamente em nucleos diferentes garantido uma otima perfoemance.
+      <p>O código é compilado para binários nativos e se transforma em um executável, 
+        sem precisar de uma máquina virtual ou de um interpretador. O Garbage Collector gerencia a memória automaticamente. 
+        A concorrência é integrada à linguagem: com goroutines, o Go consegue lidar com várias tarefas ao mesmo tempo, 
+        alternando entre elas e executando tarefas simultaneamente em diferentes núcleos, garantindo uma ótima performance.
      </p>
 
      <h2>Seção 3 — Código do Servidor</h2>

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
 	"log"
 	"net/http"
@@ -58,9 +59,24 @@ func paginaInicial(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	documentacao, err := criarDocumentacao()
+	if err != nil {
+		log.Println("Erro ao criar a documentação:", err)
+		http.Error(w, "Erro interno ao carregar a documentação", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	if err := templateHTML.ExecuteTemplate(w, "index.html", documentacao); err != nil {
+		log.Println("Erro ao renderizar o HTML:", err)
+	}
+}
+
+func criarDocumentacao() (Documentacao, error) {
 	codigoFonte, err := os.ReadFile("main.go")
 	if err != nil {
-		log.Println("Deu B.O ao ler o codigo-fonte:", err)
+		return Documentacao{}, err
 	}
 
 	documentacao := Documentacao{
@@ -111,14 +127,37 @@ func paginaInicial(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	return documentacao, nil
+}
 
-	if err := templateHTML.ExecuteTemplate(w, "index.html", documentacao); err != nil {
-		log.Println("Erro ao renderizar o HTML:", err)
+func apiDocumentacao(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/api/docs" {
+		http.NotFound(w, r)
+		return
+	}
+
+	if r.Method != http.MethodGet {
+		w.Header().Set("Allow", "GET")
+		http.Error(w, "O método foi negado", http.StatusMethodNotAllowed)
+		return
+	}
+
+	documentacao, err := criarDocumentacao()
+	if err != nil {
+		log.Println("Erro ao criar a documentação:", err)
+		http.Error(w, "Erro interno ao carregar a documentação", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+
+	if err := json.NewEncoder(w).Encode(documentacao); err != nil {
+		log.Println("Erro ao enviar a documentação em JSON:", err)
 	}
 }
 
 func main() {
+	http.HandleFunc("/api/docs", apiDocumentacao)
 	http.HandleFunc("/", paginaInicial)
 	log.Println("Servidor iniciado em http://localhost:8083")
 	log.Fatal(http.ListenAndServe(":8083", nil))
