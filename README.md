@@ -2,6 +2,9 @@
 
 ## Disciplina
 Programação Web - UNIVALI
+#
+# Docente
+Welington Gadelha
 
 ## Integrantes
 - Arthur Sperandio
@@ -27,3 +30,7 @@ Content-Type: application/json
 - Documentação em JSON
 - Tratamento de rotas que não existem
 - Validação do método HTTP
+
+## URL
+http://localhost:8080/
+http://localhost:8080/api/docs
