@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -9,6 +9,7 @@ import (
 
 type Documentacao struct {
 	Titulo      string   `json:"titulo"`
+	Docente     string   `Json:"Docente"`
 	Disciplina  string   `json:"disciplina"`
 	Integrantes []string `json:"integrantes"`
 	Secao1      Secao1   `json:"secao_1_pontos_fortes_e_filosofia"`
@@ -50,6 +51,13 @@ func paginaInicial(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "O metodo foi negado, parceiro!", http.StatusMethodNotAllowed)
 		return
 	}
+	templateHTML, err := template.ParseFiles("templates/index.html")
+	if err != nil {
+		log.Println("Erro ao carregar o HTML:", err)
+		http.Error(w, "Erro interno ao carregar a página", http.StatusInternalServerError)
+		return
+	}
+
 	codigoFonte, err := os.ReadFile("main.go")
 	if err != nil {
 		log.Println("Deu B.O ao ler o codigo-fonte:", err)
@@ -57,6 +65,7 @@ func paginaInicial(w http.ResponseWriter, r *http.Request) {
 
 	documentacao := Documentacao{
 		Titulo:     "Go (Golang) - Servidor Web",
+		Docente:    "Welington Gadelha",
 		Disciplina: "Programacao Web - UNIVALI",
 		Integrantes: []string{
 			"Arthur Sperandio Marcelino",
@@ -102,9 +111,10 @@ func paginaInicial(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	if err := json.NewEncoder(w).Encode(documentacao); err != nil {
-		log.Println("Capotou o corsa:", err)
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	if err := templateHTML.ExecuteTemplate(w, "index.html", documentacao); err != nil {
+		log.Println("Erro ao renderizar o HTML:", err)
 	}
 }
 
