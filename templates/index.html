@@ -1,90 +1,112 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentação Servidor Go</title>
 </head>
+
 <body>
-   
+
     <h1>{{.Titulo}}</h1>
     <p>Docente:{{.Docente}}</p>
     <p>Disciplina:{{.Disciplina}}</p>
 
-
-<h1>Integrantes</h1>
-<ul>
-    {{range .Integrantes}}
+    <h1>Integrantes</h1>
+    <ul>
+        {{range .Integrantes}}
         <li>{{.}}</li>
-    {{end}}
-</ul>
-
+        {{end}}
+    </ul>
 
     <h2>Documentação do Servidor Go</h2>
     <p>Bem-vindo à documentação do nosso servidor Go!</p>
-    <p>Go é uma linguagem de programação compilada, tipada estaticamente e open source.
+
+    <p>
+        Go é uma linguagem de programação compilada, tipada estaticamente e open source.
         Foi criada no Google em 2009 com objetivo de unir a simplicidade de linguagens como Python
         com a performance de C / C++
     </p>
 
     <h2>Seção 1 — Pontos Fortes e Filosofia</h2>
-    <p>{{.Secao1.Descricao}}</p>
-    <p> A biblioteca padrão é rica, com recursos para HTTP, JSON, CRIPTOGRAFIA, TESTES e outros recursos
-          sem depender de frameworks de terceiros.
-        Algumas ferramentas integradas, como go build, go test, go fmt, go mod, go vet.
-        Sobre o go build compila os pacotes e suas dependencias, se for uma função main, gera um arquivo executável
-        se for uma biblioteca verifica se tem erros sem gerar arquivo.exe    
-        
-        Esse é um dos pontos fortes: go build lê o go mod, para saber as dependências compila cada pacote
-         Usando um cache de build, ele é rápido pois ele vai recompilar apenas os que tiveram mudanças
-         faz o linking, juntando tudo em um binário estático, com o runtime do Go (incluindo o garbage collector) embutido.
 
-         Jáque o objetivo dos criadores era otimizar o tempo ao compilar vários códigos.
+    <p>{{.Secao1.Descricao}}</p>
+
+    <h3>Principais vantagens</h3>
+    <ul>
+        {{range .Secao1.Vantagens}}
+        <li>{{.}}</li>
+        {{end}}
+    </ul>
+
+    <p>
+        A biblioteca padrão é rica, com recursos para HTTP, JSON, CRIPTOGRAFIA, TESTES e outros recursos
+        sem depender de frameworks de terceiros.
+        Algumas ferramentas integradas, como go build, go test, go fmt, go mod, go vet.
+
+        Sobre o go build compila os pacotes e suas dependencias, se for uma função main, gera um arquivo executável
+        se for uma biblioteca verifica se tem erros sem gerar arquivo.exe
+
+        Esse é um dos pontos fortes: go build lê o go mod, para saber as dependências compila cada pacote
+        Usando um cache de build, ele é rápido pois ele vai recompilar apenas os que tiveram mudanças
+        faz o linking, juntando tudo em um binário estático, com o runtime do Go
+        (incluindo o garbage collector) embutido.
+
+        Jáque o objetivo dos criadores era otimizar o tempo ao compilar vários códigos.
     </p>
 
-     <h3>Caso de uso ideal</h3>
-      <p>{{.Secao1.CasoDeUsoIdeal}}</p>  
-     
+    <h3>Caso de uso ideal</h3>
+    <p>{{.Secao1.CasoDeUsoIdeal}}</p>
+
     <h2>Seção 2 — Pré-requisitos e Setup</h2>
 
-      <h3>Pré-requisitos</h3>
-      <ul>
-       {{range .Secao2.PreRequisitos}}
-        <li>{{.}}</li>
-         {{end}}
-     </ul>
-
-      <h3>Comandos</h3>
+    <h3>Pré-requisitos</h3>
     <ul>
-    {{range .Secao2.Comandos}}
+        {{range .Secao2.PreRequisitos}}
+        <li>{{.}}</li>
+        {{end}}
+    </ul>
+
+    <h3>Comandos</h3>
+    <ul>
+        {{range .Secao2.Comandos}}
         <li><code>{{.}}</code></li>
-    {{end}}
-    </ul>  
-    
-      <h4>Funcionamento</h4>
-      <p>O código é compilado para binários nativos e se transforma em um executável, 
-        sem precisar de uma máquina virtual ou de um interpretador. O Garbage Collector gerencia a memória automaticamente. 
-        A concorrência é integrada à linguagem: com goroutines, o Go consegue lidar com várias tarefas ao mesmo tempo, 
-        alternando entre elas e executando tarefas simultaneamente em diferentes núcleos, garantindo uma ótima performance.
-     </p>
+        {{end}}
+    </ul>
 
-     <h2>Seção 3 — Código do Servidor</h2>
+    <h4>Funcionamento</h4>
+    <p>
+        O código é compilado para binários nativos e se transforma em um executável,
+        sem precisar de uma máquina virtual ou de um interpretador.
+        O Garbage Collector gerencia a memória automaticamente.
+        A concorrência é integrada à linguagem: com goroutines, o Go consegue lidar com várias tarefas ao mesmo tempo,
+        alternando entre elas e executando tarefas simultaneamente em diferentes núcleos,
+        garantindo uma ótima performance.
+    </p>
 
-     <p><strong>Arquivo:</strong> {{.Secao3.Arquivo}}</p>
-     <p><strong>Comando:</strong> <code>{{.Secao3.Comando}}</code></p>
-     <p>{{.Secao3.Explicacao}}</p>
+    <h2>Seção 3 — Código do Servidor</h2>
 
-     <h3>Código completo</h3>
-     <pre><code>{{.Secao3.CodigoCompleto}}</code></pre>
-   
-     <h2>Seção 4 — Conclusão</h2>
+    <p><strong>Arquivo:</strong> {{.Secao3.Arquivo}}</p>
 
-   <h3>Principal dificuldade</h3>
-   <p>{{.Secao4.Dificuldade}}</p>
+    <p>
+        <strong>Comando:</strong>
+        <code>{{.Secao3.Comando}}</code>
+    </p>
+
+    <p>{{.Secao3.Explicacao}}</p>
+
+    <h3>Código completo</h3>
+
+    <pre><code>{{.Secao3.CodigoCompleto}}</code></pre>
+
+    <h2>Seção 4 — Conclusão</h2>
+
+    <h3>Principal dificuldade</h3>
+    <p>{{.Secao4.Dificuldade}}</p>
 
     <h3>Recomendação final</h3>
     <p>{{.Secao4.Recomendacao}}</p>
-
 
 </body>
 </html>

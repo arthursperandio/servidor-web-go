@@ -32,5 +32,5 @@ Content-Type: application/json
 - Validação do método HTTP
 
 ## URL
-http://localhost:8080/
-http://localhost:8080/api/docs
+http://localhost:8083/
+http://localhost:8083/api/docs
